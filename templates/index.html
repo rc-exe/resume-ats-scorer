@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume ATS Scorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Resume ATS Scorer</h1>
+            <p>Analyze your resume’s relevance to any job description with advanced AI scoring.</p>
+        </header>
+
+        <section id="how-it-works">
+            <h2>How It Works</h2>
+            <ul>
+                <li><strong>Upload Resume:</strong> PDF only.</li>
+                <li><strong>Enter Job Description:</strong> Paste the text of the job posting.</li>
+                <li><strong>Get Your Score:</strong> Receive an AI-powered match score instantly.</li>
+            </ul>
+        </section>
+
+        <form method="POST" action="/score" enctype="multipart/form-data">
+            <div class="input-group">
+                <label for="resume">Upload Resume (PDF):</label>
+                <input type="file" id="resume" name="resume" required>
+            </div>
+            <div class="input-group">
+                <label for="job_description">Job Description:</label>
+                <textarea id="job_description" name="job_description" rows="8" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Score Resume</button>
+        </form>
+
+        {% if score is not none %}
+        <div class="result">
+            <h2>Resume Score: {{ score }}%</h2>
+        </div>
+        
+        <div class="suggestions">
+            <h3>AI Suggestions for Improvement:</h3>
+            <p>{{ suggestion }}</p>
+        </div>
+        {% endif %}
+
+        {% if error is not none %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Resume ATS Scorer</p>
+    </footer>
+</body>
+</html>
